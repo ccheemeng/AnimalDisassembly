@@ -64,8 +64,7 @@ With some reference to the [RhinoCommon API](https://developer.rhino3d.com/api/r
 
 **BoundingRectangleDecompiled.cs**
 ```C#
-176
-        Plane val11 = default(Plane);
+176        Plane val11 = default(Plane);
 ...
 197                        ((Plane)(ref val11))._002Ector(((Box)(ref val3)).PointAt(0.5, 0.5, num2), ((Plane)(ref val)).XAxis, ((Plane)(ref val)).YAxis);
 ```
