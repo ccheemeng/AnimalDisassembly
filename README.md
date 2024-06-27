@@ -42,7 +42,7 @@ If successful, the *IL DASM* UI should appear with a tree of the plugin's defini
     > ```IGH_DataAccess::SetDataTree<T>(Int32, IGH_DataTree)```  
     > ```IGH_DataAccess::SetDataTree<T>(Int32, IGH_Structure)```  
     > Note that methods for parameter access by name (replacing ```Int32``` with ```String```) exist too, but are rarely used.
-2. Find all ```GetDataX<T>(Int32,Y<T>)``` calls in the method.
+2. Find all ```GetDataX<T>(Int32, Y<T>)``` calls in the method.
     - ```X``` corresponds to the type of access each input parameter has:  
     ```X``` is nothing: Item Access  
     ```X``` is ```List```: List Access  
