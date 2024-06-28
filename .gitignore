@@ -1,0 +1,15 @@
+# Grasshopper Assemblies
+*.gha
+*.dll
+
+# Grasshopper Files and Components
+*.gh
+*.ghuser
+
+# Rhino Package
+*.rhp
+
+# General
+*.pdb
+*.yml
+*.yml.orig
