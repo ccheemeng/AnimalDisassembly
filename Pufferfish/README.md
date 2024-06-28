@@ -1,4 +1,10 @@
-# Missing References
+# Pufferfish BoundingRectangle Reimplementation
+
+Rhino version: Rhino 7  
+Plugin version: [Pufferfish V3.0](https://www.food4rhino.com/en/app/pufferfish)  
+Component reference: ```Pufferfish.Components.Components_Curve._5_Curve.BoundingRectangle```
+
+## Missing References
 
 **BoundingRectangleDecompiled.cs**
 ```C#
@@ -15,7 +21,7 @@ These comments are usually thrown when the decompiler encounters a reference to 
 - ```IL_0085 -> [RhinoCommon]Rhino.Geometry.BoundingBox```  
 - ```IL_04c6 -> [RhinoCommon]Rhino.Geometry.Interval```  
 
-# Unavailable Input Data Types
+## Unavailable Input Data Types
 
 **BoundingRectangleDecompiled.cs**
 ```C#
@@ -34,7 +40,7 @@ Because ```IGH_GeometricGoo``` is not a valid input type for the provided C# Scr
 
 ```Grasshopper.Kernel.GH_Convert::ToGeometricGoo(Object)``` is used to convert ```GeometryBase``` to ```IGH_GeometricGoo```.
 
-# Constructor Confusion ```.ctor```
+## Constructor Confusion ```.ctor```
 
 **BoundingRecangleDecompiled.cs**
 ```C#
@@ -56,11 +62,11 @@ Because ```IGH_GeometricGoo``` is not a valid input type for the provided C# Scr
 95      box.Plane = Pl;
 ```
 
-Sometimes decompilers confuse an IL constructor ```.ctor``` for another method, and thus represent it as such. In this case, the constructor has been reprsented as ```._002Ector```.  
+Sometimes decompilers confuse an IL constructor ```.ctor``` for another method, and thus represent it as such. In this case, the constructor has been represented as ```._002Ector```.  
 
 With some reference to the [RhinoCommon API](https://developer.rhino3d.com/api/rhinocommon/rhino.geometry.box/box#(boundingbox)) and some more inference, we can see that the ```val3``` is being set as a new ```Box``` via the ```Box(BoundingBox)``` constructor.
 
-# Passing by Reference
+## Passing by Reference
 
 **BoundingRectangleDecompiled.cs**
 ```C#

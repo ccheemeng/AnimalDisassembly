@@ -2,6 +2,25 @@
 
 Sample reimplementations of third-party Grasshopper .NET plugin components using Grasshopper's native script components.
 
+## Using This Repository
+
+The documentation for each component ```SampleComponent``` generally contains the decompiled output of ```SampleComponent``` **SampleComponentDecompiled.cs**, and the reimplementation for Grasshopper's C# Script Instance **SampleComponent.cs**.
+
+The documentation's subsections cover atypical implementation issues, and are typically structured as such:  
+> ## Implementation Issue
+> 
+> **BoundingRectangleDecompiled.cs**  
+> ```
+> <code sample from decompilation>
+> ```  
+> 
+> **BoundingRectangle.cs**  
+> ```
+> <code sample from reimplementation>
+> ```  
+> 
+> Details of reimplementation may be written here, comparing the differences between the two and the changes made that resulted in the reimplementation.
+
 ## Instructions
 
 In general, disassembling a plugin involves the following steps:
@@ -59,6 +78,81 @@ If successful, the *IL DASM* UI should appear with a tree of the plugin's defini
     ```1```: X  
     ```2```: Y
 4. Edit the input and output parameters of Rhino's C# Script Component to match each parameter referenced by the ```GetData``` and ```SetData``` methods respectively of ```SolveInstance(IGH_DataAccess)```.
-5. Reimplement the class's ```SolveInstance(IGH_DataAccess)``` method within the ```RunScript(...)``` method of the Script Component.  
+5. Reimplement the class's ```SolveInstance(IGH_DataAccess)``` method within the ```RunScript(...)``` method of the Script Component.
 
-Each subfolder contains documentation with specifics of the reimplementation process for that particular plugin and component.
+## Reimplementation Details
+
+The following section contains details for reimplementation that are generally applicable. For component-specific issues, refer to the subfolder containing the relevant component.
+
+### Data Access
+
+**SampleComponentDecompiled.cs**
+```C#
+    protected override void SolveInstance(IGH_DataAccess DA)
+    {
+        T t = default(T);
+        DA.GetData<T>(0, t);
+        List<U> list = new List<U>();
+        DA.GetDataList<U>(1, list);
+        GH_Structure<V> val = default(GH_Structure<V>);
+        DA.GetDataTree<V>(2, val);
+
+        ...
+
+        DA.SetData(0, (object)val2);
+        DA.SetDataList(1, (IEnumerable)list2);
+        DA.SetDataTree(2, (IGH_Structure)val3);
+    }
+```
+
+**SampleComponent.cs**
+```C#
+  private void RunScript(T t, List<U> us, DataTree<V> vs, ref object A, ref object B, ref object C)
+  {
+    List<U> list = us;
+    DataTree<V> val = vs;
+
+    ...
+
+    A = a;
+    B = b;
+    C = c;
+  }
+```
+
+The ```SolveInstance(IGH_DataAccess)``` method is called when Grasshopper executes a component.  
+
+> The ```IGH_DataAccess``` interface provides access to three main methods for getting component input data:  
+> ```GetData<T>(Int32, T)```  
+> ```GetDataList<T>(Int32, List<T>)```  
+> ```GetDataTree<T>(Int32, GH_Structure<T>)```  
+> Note that methods for parameter access by name (replacing ```Int32``` with ```String```) exist too, but are rarely used.
+>
+> The ```IGH_DataAccess``` interface provides access to four main methods for setting component output data:  
+> ```SetData(Int32, Object)```  
+> ```SetDataList<T>(Int32, IEnumerable)```  
+> ```SetDataTree<T>(Int32, IGH_DataTree)```  
+> ```SetDataTree<T>(Int32, IGH_Structure)```  
+> Note that methods for parameter access by name (replacing ```Int32``` with ```String```) exist too, but are rarely used.
+
+> In a ```GetDataX<T>(Int32, Y<T>)``` call:  
+> - ```X``` corresponds to the type of access each input parameter has:  
+> ```X``` is nothing: Item Access  
+> ```X``` is ```List```: List Access  
+> ```X``` is ```Tree```: Tree Access  
+> 
+> - ```Int32``` corresponds to the index of the input parameter. In the above ```SampleComponent```:  
+> ```0```: A  
+> ```1```: B  
+> ```2```: C  
+
+The ```RunScript()``` method is called when Grasshopper executes its C# Script Component. The method's arguments can be set by editing the input and output parameters from the Grasshopper GUI.  
+In the reimplementation of ```SampleComponent``` above, the following parameters were set:
+- An *item* input of type hint ```T```
+- A *list* input of type hint ```U```
+- A *tree* input of type hint ```V```
+- An output ```A```
+- An output ```B```
+- An output ```C```
+
+Each input and output corresponds to the inputs and outputs of the original ```SampleComponent```.
