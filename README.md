@@ -151,8 +151,25 @@ In the reimplementation of ```SampleComponent``` above, the following parameters
 - An *item* input of type hint ```T```
 - A *list* input of type hint ```U```
 - A *tree* input of type hint ```V```
-- An output ```A```
-- An output ```B```
-- An output ```C```
+- An output ```A```*
+- An output ```B```*
+- An output ```C```*  
+
+\* Note that the access type (item/list/tree) and data type *cannot* be set for the output. The output type is always ```object```.
 
 Each input and output corresponds to the inputs and outputs of the original ```SampleComponent```.
+
+| Data Access | Access Type | Decompilation | Reimplementation |
+|-|-|-|-|
+| Input | Item | ```T t = default(T);```<br>```DA.GetData<T>(0, t);``` | - |
+| Input | List | ```List<U> list = new List<U>();```<br>```DA.GetDataList<U>(1, list);``` | ```List<U> list = us;``` |
+| Input | Tree | ```GH_Structure<V> val = default(GH_Structure<V>);```<br>```DA.GetDataTree<V>(2, val);``` | ```DataTree<V> val = vs;``` |
+| Output | Item | ```DA.SetData(0, (object)val2);``` | ```A = a;``` |
+| Output | List | ```DA.SetDataList(1, (IEnumerable)list2);``` | ```B = b;``` |
+| Output | Tree | ```DA.SetDataTree(2, (IGH_Structure)val3);``` | ```C = c;``` |
+
+The item input ```t``` can be referenced directly in the reimplementation and thus no code is needed.  
+
+The list input ```us``` only needs to be assigned to a ```List<U>``` with the same variable name ```list``` as the decompilation.  
+
+Tree inputs in Grasshopper scripting components are represented with the [```DataTree```](https://mcneel.github.io/grasshopper-api-docs/api/grasshopper/html/T_Grasshopper_DataTree_1.htm) class, a watered-down version of [```GH_Structure```](https://mcneel.github.io/grasshopper-api-docs/api/grasshopper/html/T_Grasshopper_Kernel_Data_GH_Structure_1.htm). For most cases the methods called on ```GH_Structure``` in a decompilation will work on ```DataTree``` too. If not, a new ```GH_Structure``` containing the items in ```DataTree``` needs to be constructed.
