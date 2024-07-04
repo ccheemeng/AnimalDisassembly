@@ -8,7 +8,7 @@ Component reference: ```Human.DynamicPipeline```
 
 **DynamicPipelineDecompiled.cs**
 ```C#
-238         //IL_0027: Unknown result type (might be due to invalid IL or missing references)
+238        //IL_0027: Unknown result type (might be due to invalid IL or missing references)
 239        //IL_0020: Unknown result type (might be due to invalid IL or missing references)
 240        //IL_059d: Unknown result type (might be due to invalid IL or missing references)
 ...

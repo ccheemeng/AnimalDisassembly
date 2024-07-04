@@ -9,12 +9,12 @@ The documentation for each component ```SampleComponent``` generally contains th
 The documentation's subsections cover atypical implementation issues, and are typically structured as such:  
 > ## Implementation Issue
 > 
-> **BoundingRectangleDecompiled.cs**  
+> **SampleComponentDecompiled.cs**  
 > ```
 > <code sample from decompilation>
 > ```  
 > 
-> **BoundingRectangle.cs**  
+> **SampleComponent.cs**  
 > ```
 > <code sample from reimplementation>
 > ```  

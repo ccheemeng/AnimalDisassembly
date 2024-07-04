@@ -13,3 +13,10 @@
 *.pdb
 *.yml
 *.yml.orig
+
+# Visual Studio Project
+*.csproj
+*.csproj.*
+*.sln
+*.assets
+*.cache
